@@ -1,0 +1,10 @@
+app-port: ":3000"
+app-host: "169.253.0.5"
+docker-version: "1.40"
+minio-container-name-pattern: "amazin-object-storage-node"
+docker-network-name: "large-assignment_amazin-object-storage"
+user-env-var-name: "MINIO_ROOT_USER"
+password-env-var-name: "MINIO_ROOT_PASSWORD"
+minio-port: "9000"
+minio-secure-connection: false
+bucket-name: "my-bucket"

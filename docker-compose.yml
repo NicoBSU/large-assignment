@@ -1,0 +1,72 @@
+x-healthcheck: &minio-healthcheck
+  interval: 10s
+  timeout: 10s
+  retries: 2
+  start_period: 10s
+
+services:
+  amazin-object-storage-node-1: &object-storage-node
+    image: minio/minio
+    command: server --console-address ":9001" /tmp/data
+    ports: [ "9001:9001" ]
+    networks:
+      amazin-object-storage:
+        ipv4_address: 169.253.0.2
+    environment:
+      - MINIO_ROOT_USER=ring
+      - MINIO_ROOT_PASSWORD=treepotato
+    healthcheck:
+      <<: *minio-healthcheck
+      test: ["CMD", "curl", "-f", "http://169.253.0.2:9001/minio/health/live"]
+
+  amazin-object-storage-node-2:
+    <<: *object-storage-node
+    ports: [ "9002:9001" ]
+    networks:
+      amazin-object-storage:
+        ipv4_address: 169.253.0.3
+    environment:
+      - MINIO_ROOT_USER=maglev
+      - MINIO_ROOT_PASSWORD=baconpapaya
+    healthcheck:
+      <<: *minio-healthcheck
+      test: ["CMD", "curl", "-f", "http://169.253.0.3:9001/minio/health/live"]
+
+  amazin-object-storage-node-3:
+    <<: *object-storage-node
+    ports: [ "9003:9001" ]
+    networks:
+      amazin-object-storage:
+        ipv4_address: 169.253.0.4
+    environment:
+      - MINIO_ROOT_USER=rendezvous
+      - MINIO_ROOT_PASSWORD=bluegreen
+    healthcheck:
+      <<: *minio-healthcheck
+      test: ["CMD", "curl", "-f", "http://169.253.0.4:9001/minio/health/live"]
+
+  gateway-container:
+    build:
+      context: .
+    image: gateway-image
+    ports: [ "3000:3000" ]
+    networks:
+      amazin-object-storage:
+        ipv4_address: 169.253.0.5
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      amazin-object-storage-node-1:
+        condition: service_healthy
+      amazin-object-storage-node-2:
+        condition: service_healthy
+      amazin-object-storage-node-3:
+        condition: service_healthy
+
+networks:
+  amazin-object-storage:
+    ipam:
+      driver: default
+      config:
+        - subnet: 169.253.0.0/24
+          gateway: 169.253.0.1

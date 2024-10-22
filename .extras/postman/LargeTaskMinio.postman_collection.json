@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "7ed8ed09-8889-4387-bdb9-39f931ecbea3",
+		"name": "LargeTaskMinio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37798102"
+	},
+	"item": [
+		{
+			"name": "Put object",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Some stuff here",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://169.253.0.5:3000/object/B3bC2dE3fG4hI5jK6lM7nO8pQ9rS0tU",
+					"protocol": "http",
+					"host": [
+						"169",
+						"253",
+						"0",
+						"5"
+					],
+					"port": "3000",
+					"path": [
+						"object",
+						"B3bC2dE3fG4hI5jK6lM7nO8pQ9rS0tU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put with wrong id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Some stuff here",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://169.253.0.5:3000/object/A-3bC2dE3fG4hI5jK6lM7nO8pQ9rS0tU",
+					"protocol": "http",
+					"host": [
+						"169",
+						"253",
+						"0",
+						"5"
+					],
+					"port": "3000",
+					"path": [
+						"object",
+						"A-3bC2dE3fG4hI5jK6lM7nO8pQ9rS0tU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get with wrong id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Some stuff here",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://169.253.0.5:3000/object/B-3bC2dE3fG4hI5jK6lM7nO8pQ9rS0tU",
+					"protocol": "http",
+					"host": [
+						"169",
+						"253",
+						"0",
+						"5"
+					],
+					"port": "3000",
+					"path": [
+						"object",
+						"B-3bC2dE3fG4hI5jK6lM7nO8pQ9rS0tU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get object",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://169.253.0.5:3000/object/A3bC2dE3fG4hI5jK6lM7nO8pQ9rS0tU",
+					"protocol": "http",
+					"host": [
+						"169",
+						"253",
+						"0",
+						"5"
+					],
+					"port": "3000",
+					"path": [
+						"object",
+						"A3bC2dE3fG4hI5jK6lM7nO8pQ9rS0tU"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
